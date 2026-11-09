@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Database Security Project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .doc-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .doc-section h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        .doc-section p, .doc-section li {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+        .doc-section ul {
+            padding-left: 1.5rem;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #d97706;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Project #9: Database Security</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Secure Dashboard</a></li>
+                <li><a href="docs.html" class="active">Documentation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Project Technical Documentation</h1>
+        <p class="subtitle">Detailed architectural breakdown, security controls, and verification guidelines.</p>
+
+        <div class="doc-section">
+<div>
+            <h2>1. Project Overview & Scope</h2>
+<p>This project implements comprehensive database security controls in accordance with undergraduate guidelines[cite: 1]. The architecture addresses common vulnerabilities through structured defense-in-depth mechanisms.</p>
+</div>
+<div>
+            <ul>
+                <li><strong>Student Name:</strong> Chinsinsi Msanyama[cite: 4]</li>
+                <li><strong>Registration Number:</strong> 23311351017[cite: 4]</li>
+                <li><strong>Assigned Project:</strong> No. 9 - Database Security Implementation</li>
+                <li><strong>Institution:</strong> DMI-St. John the Baptist University[cite: 4]</li>
+            </ul>
+        </div>
+</div>
+
+        <div class="doc-section">
+            <h2>2. Implemented Security Controls</h2>
+            <ul>
+                <li><strong>User Authentication:</strong> Passwords are processed using cryptographic hashing routines via the Web Crypto API, mitigating plain-text interception risks.</li>
+                <li><strong>Access Privileges (RBAC):</strong> Strict separation between <code>Standard User</code> and <code>Administrator</code> roles, restricting unauthorized execution of administrative functions.</li>
+                <li><strong>Parameterised Queries:</strong> Separation of executable code and user-supplied parameters to completely neutralize SQL Injection (SQLi) vectors.</li>
+                <li><strong>Input Validation:</strong> Strict schema validation and sanitisation filters applied on all input fields prior to database operations.</li>
+                <li><strong>Sensitive Information Protection:</strong> Data masking and tokenization applied to secure personally identifiable information (PII).</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>3. Repository & Deployment</h2>
+            <p>The complete source code, documentation, and assets are maintained under version control.</p>
+            <p><strong>GitHub Repository:</strong> <a href="https://github.com/Tessy-123/database-security-implementation" target="_blank">https://github.com/Tessy-123/database-security-implementation</a></p>
+            <p><strong>Lecturer Review Collaborator:</strong> <code>stanslausphillimon@gmail.com</code>[cite: 1]</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Chinsinsi Msanyama (Reg No: 23311351017) | DMI-St. John the Baptist University[cite: 4]</p>
+    </footer>
+</body>
+</html>
