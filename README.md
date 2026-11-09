@@ -1,11 +1,11 @@
-# da# Project No. 9: Database Security Implementation
+# Project No. 9: Database Security Implementation
 
-An enterprise security suite and 3-page academic portfolio web application designed to demonstrate robust database defensive controls, including Parameterised Queries, Role-Based Access Control (RBAC), and Sensitive Data Protection (SHA-256 Hashing & PII Masking).
+An academic web portfolio and security simulation suite designed to demonstrate core database defensive controls, including Role-Based Access Control (RBAC), Parameterised Queries vs. SQL Injection, SHA-256 password hashing, and dynamic PII data masking.
 
 ## Project Metadata & Verification
 * **Candidate Name:** Chinsinsi Msanyama
 * **Registration Number:** 23311351017
-* **Assigned Project:** No. 9 — Database Security Implementation
+* **Assigned Project:** Project No. 9 — Database Security Implementation
 * **Institution:** DMI-St. John the Baptist University
 * **Lecturer Reviewer:** Stanslaus Phillimon (`stanslausphillimon@gmail.com`)
 * **GitHub Repository:** [https://github.com/Tessy-123/database-security-implementation](https://github.com/Tessy-123/database-security-implementation)
@@ -13,26 +13,21 @@ An enterprise security suite and 3-page academic portfolio web application desig
 
 ---
 
-## Three-Page Portfolio Structure
-1. **Home Page (`index.html`):** Professional public landing page featuring project context, security feature highlights, institutional metadata, and navigation triggers.
-2. **Authentication Gateway (`auth.html`):** Secure login and registration portal featuring password confirmation validation, dual-role selection (Standard User vs. Administrator), and client-side password visibility toggles.
-3. **Security Operations & Data Vault Dashboard (`dashboard.html`):** 
-   * **Parameterised Query Engine:** Safely queries institutional records using prepared statement simulations while preventing code injection.
-   * **SQL Injection Defense Simulation:** Demonstrates the difference between secure parameterized inputs and vulnerable string-concatenated queries.
-   * **Role-Based Access Control (RBAC):** Gated privilege checks allowing administrators access to audit logs, schema inspectors, and management tools.
-   * **Sensitive Data Protection Vault:** Field-level cryptographic SHA-256 password hashing digests and dynamic Personable Identifiable Information (PII) data masking.
+## Three-Page Application Structure
+1. **Authentication Gateway (`index.html`):** 
+   * Handles user login and account registration with password confirmation validation.
+   * Features interactive show/hide password toggle controls and assigns privilege tiers (`Standard User` or `Administrator`).
+2. **Secure Operations Dashboard (`dashboard.html`):** 
+   * **Role-Based Access Control (RBAC):** Dynamically alters interface controls depending on the active session role (revealing an admin console with audit logs, schema inspectors, and session flushing tools for admins).
+   * **Parameterised Query Engine:** Safely processes institutional database lookups using prepared statement syntax.
+   * **SQL Injection Simulator:** Demonstrates how unsanitized string concatenation can be exploited to bypass logic and leak records.
+3. **Sensitive Data Protection & Documentation (`docs.html`):** 
+   * Houses project metadata and technical documentation for evaluation.
+   * Displays an institutional data vault demonstrating field-level SHA-256 cryptographic password hashing and dynamic Personable Identifiable Information (PII) masking (e.g., national IDs).
 
 ---
 
 ## Technology Stack
-* **Frontend:** HTML5, CSS3 (Slate/Indigo corporate theme)
-* **Scripting:** Vanilla JavaScript (ES6+) for client-side security simulation and session storage management
-* **Hosting & Deployment:** GitHub Pages
-
----
-
-## Local Execution Instructions
-To run or inspect this project locally:
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/Tessy-123/database-security-implementation.git](https://github.com/Tessy-123/database-security-implementation.git)tabase-security-implementation
+* **Frontend:** HTML5, CSS3 (Slate/Indigo theme)
+* **Logic & Storage:** Vanilla JavaScript (ES6+), Web Session Storage, and Local Storage
+* **Hosting:** GitHub Pages
