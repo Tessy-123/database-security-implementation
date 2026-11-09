@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | Database Security Project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            max-width: 450px;
+            margin: 2rem auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+        }
+        .tab.active {
+            color: #818cf8;
+            border-bottom-color: #818cf8;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            user-select: none;
+        }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Project #9: Database Security</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="auth.html" class="active">Authentication</a></li>
+                <li><a href="dashboard.html">Security Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="auth-container">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h2>Secure Gateway</h2>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Project #9 Database Security Implementation[cite: 3, 4]</p>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('login')">Login</div>
+                <div class="tab" onclick="switchTab('register')">Register</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="form-section active">
+                <div class="form-group">
+                    <label for="loginUser">Username or Email</label>
+                    <input type="text" id="loginUser" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPass">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="loginPass" placeholder="Enter password" required>
+                        <span class="toggle-password" onclick="togglePass('loginPass', this)">Show</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn primary" style="width: 100%;">Secure Login</button>
+                <div id="loginStatus" style="margin-top: 1rem; font-size: 0.9rem; text-align: center;"></div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="form-section">
+                <div class="form-group">
+                    <label for="regUser">Username</label>
+                    <input type="text" id="regUser" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="regRole">Access Privilege</label>
+                    <select id="regRole">
+                        <option value="user">Standard User</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="regPass">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="regPass" placeholder="Create password" required>
+                        <span class="toggle-password" onclick="togglePass('regPass', this)">Show</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPass">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="regConfirmPass" placeholder="Confirm password" required>
+                        <span class="toggle-password" onclick="togglePass('regConfirmPass', this)">Show</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn primary" style="width: 100%;">Register Account</button>
+                <div id="regStatus" style="margin-top: 1rem; font-size: 0.9rem; text-align: center;"></div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Chinsinsi Msanyama (Reg No: 23311351017) | DMI-St. John the Baptist University[cite: 4]</p>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            if(tab === 'login') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        function togglePass(fieldId, el) {
+            const input = document.getElementById(fieldId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                el.textContent = 'Hide';
+            } else {
+                input.type = 'password';
+                el.textContent = 'Show';
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('regUser').value.trim();
+            const role = document.getElementById('regRole').value;
+            const pass = document.getElementById('regPass').value;
+            const confirmPass = document.getElementById('regConfirmPass').value;
+            const status = document.getElementById('regStatus');
+
+            if (pass !== confirmPass) {
+                status.innerHTML = `<span style="color: var(--danger);">Passwords do not match!</span>`;
+                return;
+            }
+
+            localStorage.setItem('registeredUser', JSON.stringify({ user, pass, role }));
+            status.innerHTML = `<span style="color: var(--success);">Registration successful! Redirecting to login...</span>`;
+            setTimeout(() => switchTab('login'), 1200);
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value;
+            const status = document.getElementById('loginStatus');
+
+            const saved = JSON.parse(localStorage.getItem('registeredUser'));
+            if (saved && saved.user === user && saved.pass === pass) {
+                sessionStorage.setItem('secureSession', JSON.stringify({ user: saved.user, role: saved.role }));
+                status.innerHTML = `<span style="color: var(--success);">Login successful! Redirecting to Dashboard...</span>`;
+                setTimeout(() => window.location.href = 'dashboard.html', 1200);
+            } else if (user === 'admin' && pass === 'admin123') {
+                sessionStorage.setItem('secureSession', JSON.stringify({ user: 'admin', role: 'admin' }));
+                status.innerHTML = `<span style="color: var(--success);">Admin Login successful! Redirecting...</span>`;
+                setTimeout(() => window.location.href = 'dashboard.html', 1200);
+            } else {
+                status.innerHTML = `<span style="color: var(--danger);">Invalid credentials or unregistered user.</span>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Operations | Database Security Project</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Check if an active session exists; if not, redirect to auth page
+        const currentSession = sessionStorage.getItem('secureSession');
+        if (!currentSession) {
+            window.location.href = 'auth.html';
+        }
+    </script>
     <style>
         .dashboard-grid {
             display: grid;
@@ -132,7 +139,11 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Chinsinsi Msanyama (Reg No: 23311351017) | DMI-St. John the Baptist University[cite: 4]</p>
+        <p>&copy; 2026 Chinsinsi Msanyama (Reg No: 23311351017) | DMI-St. John the Baptist University</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+            Source Code & Project Materials: 
+            <a href="https://github.com/Tessy-123/database-security-implementation" target="_blank" style="color: #818cf8;">GitHub Repository</a>
+        </p>
     </footer>
 
     <script src="js/db.js"></script>
