@@ -1,11 +1,12 @@
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --background: #f8fafc;
-    --surface: #ffffff;
-    --text: #1e293b;
-    --text-light: #64748b;
-    --border: #e2e8f0;
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-card: #1e293b;
+    --text: #f8fafc;
+    --text-light: #94a3b8;
+    --border: #334155;
     --success: #10b981;
     --danger: #ef4444;
 }
@@ -42,7 +43,7 @@ body {
 .logo {
     font-weight: 700;
     font-size: 1.1rem;
-    color: var(--primary);
+    color: #818cf8;
 }
 
 .nav-links {
@@ -59,7 +60,7 @@ body {
 }
 
 .nav-links a:hover, .nav-links a.active {
-    color: var(--primary);
+    color: #818cf8;
 }
 
 /* Container & Hero */
@@ -103,6 +104,8 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: background 0.2s;
+    border: none;
+    cursor: pointer;
 }
 
 .btn.primary {
@@ -145,7 +148,7 @@ body {
     border: 1px solid var(--border);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {

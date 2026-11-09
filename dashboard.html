@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Dashboard | Database Security Project</title>
+    <title>Secure Operations | Database Security Project</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .dashboard-grid {
@@ -14,12 +14,6 @@
         }
         @media(max-width: 768px) {
             .dashboard-grid { grid-template-columns: 1fr; }
-        }
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 8px;
         }
         .form-group {
             margin-bottom: 1rem;
@@ -33,21 +27,24 @@
         .form-group input, .form-group select {
             width: 100%;
             padding: 0.6rem;
+            background: #0f172a;
             border: 1px solid var(--border);
             border-radius: 4px;
+            color: var(--text);
             font-size: 0.95rem;
         }
         .output-box {
-            background: #0f172a;
+            background: #090d16;
             color: #38bdf8;
             padding: 1rem;
             border-radius: 6px;
             font-family: monospace;
             font-size: 0.85rem;
-            min-height: 120px;
-            max-height: 250px;
+            min-height: 160px;
+            max-height: 280px;
             overflow-y: auto;
             margin-top: 1rem;
+            border: 1px solid var(--border);
         }
         .badge {
             display: inline-block;
@@ -57,8 +54,16 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-        .badge.admin { background: #fee2e2; color: #991b1b; }
-        .badge.user { background: #dbeafe; color: #1e40af; }
+        .badge.admin { background: #7f1d1d; color: #fca5a5; }
+        .badge.user { background: #1e3a8a; color: #93c5fd; }
+        .admin-only-card {
+            border: 1px solid #991b1b;
+            background: #1e1b4b;
+        }
+        .user-restricted {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -66,62 +71,62 @@
         <nav class="navbar">
             <div class="logo">Project #9: Database Security</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Authentication</a></li>
                 <li><a href="dashboard.html" class="active">Secure Dashboard</a></li>
-                <li><a href="docs.html">Documentation</a></li>
+                <li><a href="docs.html">Sensitive Data Protection</a></li>
+                <li><a href="#" onclick="logoutUser(event)" style="color: var(--danger); font-weight: 600;">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
-        <h1>Secure Operations Dashboard</h1>
-        <p class="subtitle">Test authentication privileges, parameterised queries, and input validation in real time.</p>
+        <h1>Secure Operations & RBAC Dashboard</h1>
+        <p class="subtitle">Enforcing Role-Based Access Privileges (RBAC), Parameterised Queries, and Input Validation.</p>
 
         <div class="dashboard-grid">
-            <!-- Authentication & Access Panel -->
-            <div class="panel">
-                <h2>1. Authentication & RBAC</h2>
-                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem;">Simulate user login and access control privileges.</p>
-                
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="e.g. admin or student" required>
+            <!-- Left Panel: Session Status & Privilege Controls -->
+            <div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h2>Active Session Info</h2>
+                    <div id="sessionInfo" style="font-size: 0.9rem; margin-top: 0.5rem; padding: 0.75rem; background: #0f172a; border-radius: 6px; border: 1px solid var(--border);">
+                        Loading session...
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role">Access Privilege</label>
-                        <select id="role">
-                            <option value="user">Standard User</option>
-                            <option value="admin">Administrator</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn primary" style="width: 100%;">Authenticate Session</button>
-                </form>
+                </div>
 
-                <div id="authStatus" style="margin-top: 1rem; font-size: 0.9rem; font-weight: 500;"></div>
+                <!-- Admin-Only Control Console -->
+                <div id="adminPanel" class="card admin-only-card" style="display: none;">
+                    <h3 style="color: #fca5a5; font-size: 1.05rem; margin-bottom: 0.5rem;">Administrator Privileges Console</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-light); margin-bottom: 1rem;">Privileged administrative tools restricted from standard users.</p>
+                    
+                    <button id="btnAuditDump" class="btn primary" style="width: 100%; font-size: 0.8rem; background: #991b1b; margin-bottom: 0.5rem;">View Security Audit Log</button>
+                    <button id="btnViewAllUsers" class="btn secondary" style="width: 100%; font-size: 0.8rem; margin-bottom: 0.5rem;">Inspect Raw DB Schema</button>
+                    <button id="btnFlushSession" class="btn secondary" style="width: 100%; font-size: 0.8rem; border-color: #ef4444; color: #ef4444;">Force Flush Inactive Sessions</button>
+                </div>
+
+                <!-- Standard User Guidance Card -->
+                <div id="userPanel" class="card" style="display: none;">
+                    <h3>Standard User Access</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Standard users are restricted to running parameterised database lookups on public fields only. Administrative system tables and audit logs require elevation.</p>
+                </div>
             </div>
 
-            <!-- Parameterized Query & Data Protection Panel -->
-            <div class="panel">
-                <h2>2. Parameterised Query & SQLi Defense</h2>
-                <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem;">Demonstrate safe query execution vs vulnerable concatenation.</p>
+            <!-- Right Panel: Parameterised Query & SQLi Engine -->
+            <div class="card">
+                <h2>Parameterised Query Engine</h2>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;">Query institutional student & staff records safely.</p>
                 
                 <div class="form-group">
-                    <label for="searchQuery">Search Database Record (Input)</label>
-                    <input type="text" id="searchQuery" placeholder="Enter student name or ID">
+                    <label for="searchQuery">Search Database Record</label>
+                    <input type="text" id="searchQuery" placeholder="Enter name, ID, or department (e.g. Chinsinsi)">
                 </div>
 
                 <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-                    <button id="btnSecure" class="btn primary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem;">Run Parameterised Query</button>
-                    <button id="btnVulnerable" class="btn secondary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem; border-color: var(--danger); color: var(--danger);">Simulate Vulnerable Query</button>
+                    <button id="btnSecure" class="btn primary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem;">Run Secure Query</button>
+                    <button id="btnVulnerable" class="btn secondary" style="flex: 1; font-size: 0.85rem; padding: 0.5rem; border-color: var(--danger); color: var(--danger);">Simulate SQLi Attack</button>
                 </div>
 
-                <label style="font-weight: 500; font-size: 0.9rem;">Execution Log & Results</label>
-                <div id="queryOutput" class="output-box">System ready. Awaiting query input...</div>
+                <label style="font-weight: 500; font-size: 0.9rem;">Execution Log & System Output</label>
+                <div id="queryOutput" class="output-box">System ready. Select a query operation...</div>
             </div>
         </div>
     </main>
@@ -130,7 +135,13 @@
         <p>&copy; 2026 Chinsinsi Msanyama (Reg No: 23311351017) | DMI-St. John the Baptist University[cite: 4]</p>
     </footer>
 
-    <script src="js/auth.js"></script>
     <script src="js/db.js"></script>
+    <script>
+        function logoutUser(e) {
+            e.preventDefault();
+            sessionStorage.removeItem('secureSession');
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>
